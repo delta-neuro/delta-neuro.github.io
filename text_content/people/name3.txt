@@ -1,0 +1,7 @@
+name=name3
+role=Postdoctoral Fellow
+bio=name3 leads postdoctoral investigations into wearable sleep monitoring and AI-based biomarkers. She brings expertise in human electrophysiology and translational neuroengineering.
+details=Office: Golisano Hall 6C | Email: name3@rit.edu | Focus: sleep science, signal processing, and human-centered neurotechnology.
+
+
+

@@ -1,0 +1,7 @@
+name=name1
+role=Principal Investigator
+bio=Dr. name1 leads Delta Neuro Lab with interdisciplinary research focused on computational neuroscience, neurotechnology, and sleep dynamics. Her work spans human EEG analytics, AI-driven biomarkers, and brain health translation.
+details=Office: Golisano Hall 5E | Email: name1@rit.edu | Research focus: neuroelectrophysiology, brain connectomics, and translational neuroscience.
+
+
+

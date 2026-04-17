@@ -1,0 +1,7 @@
+name=name6
+role=Research Engineer
+bio=name6 supports lab engineering and prototype development through robust system design and real-time data workflows. She specializes in bringing neurotechnology ideas to working experiments.
+details=Office: Golisano Hall 5B | Email: name6@rit.edu | Focus: hardware integration, research systems, and lab operations.
+
+
+

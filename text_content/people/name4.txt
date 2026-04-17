@@ -1,0 +1,7 @@
+name=name4
+role=Research Scientist
+bio=name4 develops analytical models for brain data and supports lab experimentation. Her work emphasizes reproducible science, computational pipelines, and human-centered neuroimaging.
+details=Office: Golisano Hall 4F | Email: name4@rit.edu | Focus: experimental design, data analysis, and translational research.
+
+
+

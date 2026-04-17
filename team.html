@@ -167,8 +167,8 @@
 
         .people-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.25rem;
             margin-top: 1.5rem;
         }
 
@@ -182,17 +182,18 @@
             color: inherit;
             box-shadow: var(--shadow);
             transition: transform 0.25s ease, box-shadow 0.25s ease;
+            min-height: 100%;
         }
 
         .person-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 24px 50px rgba(0,0,0,0.14);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 42px rgba(0,0,0,0.14);
         }
 
         .person-photo {
             position: relative;
             width: 100%;
-            height: 340px;
+            height: 260px;
             overflow: hidden;
         }
 
@@ -228,19 +229,34 @@
         }
 
         .person-meta {
-            padding: 1.25rem 1.3rem 1.5rem;
+            padding: 1rem 1rem 1.2rem;
         }
 
         .person-meta h3 {
             margin: 0 0 0.35rem;
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
 
-        .person-meta p {
+        .person-meta p,
+        .person-extra {
             margin: 0;
             color: var(--muted);
+            line-height: 1.6;
+            font-size: 0.92rem;
+        }
+
+        .section-heading {
+            margin: 3rem 0 1rem;
+            font-size: 1.85rem;
+            letter-spacing: -0.02em;
+        }
+
+        .section-description {
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.98rem;
             line-height: 1.7;
-            font-size: 0.95rem;
+            max-width: 760px;
         }
 
         .no-results {
@@ -294,68 +310,142 @@
 
         <section class="grid-section">
             <div class="people-grid" id="people-grid">
-                <a class="person-card" href="tatiana_segura.html" data-name="Tatiana Segura" data-role="Principal Investigator">
+                <a class="person-card team-person-card" href="people/name1.html" data-name="name1" data-role="Principal Investigator">
                     <div class="person-photo">
-                        <img src="images/tatiana_segura.svg" alt="Tatiana Segura">
+                        <img src="images/people/name1.svg" alt="name1">
                         <div class="photo-overlay"><span>View profile</span></div>
                     </div>
                     <div class="person-meta">
-                        <h3>Tatiana Segura</h3>
+                        <h3>name1</h3>
                         <p>Principal Investigator</p>
                     </div>
                 </a>
-                <a class="person-card" href="lindsay_riley.html" data-name="Lindsay Riley" data-role="Project Manager">
+                <a class="person-card team-person-card" href="people/name2.html" data-name="name2" data-role="Project Manager">
                     <div class="person-photo">
-                        <img src="images/lindsay_riley.svg" alt="Lindsay Riley">
+                        <img src="images/people/name2.svg" alt="name2">
                         <div class="photo-overlay"><span>View profile</span></div>
                     </div>
                     <div class="person-meta">
-                        <h3>Lindsay Riley, PhD</h3>
+                        <h3>name2</h3>
                         <p>Project Manager</p>
                     </div>
                 </a>
-                <a class="person-card" href="cara_smith.html" data-name="Cara Smith" data-role="Postdoctoral Fellow">
+                <a class="person-card team-person-card" href="people/name3.html" data-name="name3" data-role="Postdoctoral Fellow">
                     <div class="person-photo">
-                        <img src="images/cara_smith.svg" alt="Cara Smith">
+                        <img src="images/people/name3.svg" alt="name3">
                         <div class="photo-overlay"><span>View profile</span></div>
                     </div>
                     <div class="person-meta">
-                        <h3>Cara Smith, PhD</h3>
+                        <h3>name3</h3>
                         <p>Postdoctoral Fellow</p>
                     </div>
                 </a>
-                <a class="person-card" href="andrea_jones.html" data-name="Andrea Jones" data-role="Research Scientist">
+                <a class="person-card team-person-card" href="people/name4.html" data-name="name4" data-role="Research Scientist">
                     <div class="person-photo">
-                        <img src="images/andrea_jones.svg" alt="Andrea Jones">
+                        <img src="images/people/name4.svg" alt="name4">
                         <div class="photo-overlay"><span>View profile</span></div>
                     </div>
                     <div class="person-meta">
-                        <h3>Andrea Jones, PhD</h3>
+                        <h3>name4</h3>
                         <p>Research Scientist</p>
                     </div>
                 </a>
-                <a class="person-card" href="elle_caston.html" data-name="Elle Caston" data-role="Graduate Student">
+                <a class="person-card team-person-card" href="people/name5.html" data-name="name5" data-role="Graduate Student">
                     <div class="person-photo">
-                        <img src="images/elle_caston.svg" alt="Elle Caston">
+                        <img src="images/people/name5.svg" alt="name5">
                         <div class="photo-overlay"><span>View profile</span></div>
                     </div>
                     <div class="person-meta">
-                        <h3>Elle Caston</h3>
+                        <h3>name5</h3>
                         <p>Graduate Student</p>
                     </div>
                 </a>
-                <a class="person-card" href="alejandra_suarez_arnedo.html" data-name="Alejandra Suarez-Arnedo" data-role="Research Engineer">
+                <a class="person-card team-person-card" href="people/name6.html" data-name="name6" data-role="Research Engineer">
                     <div class="person-photo">
-                        <img src="images/alejandra_suarez_arnedo.svg" alt="Alejandra Suarez-Arnedo">
+                        <img src="images/people/name6.svg" alt="name6">
                         <div class="photo-overlay"><span>View profile</span></div>
                     </div>
                     <div class="person-meta">
-                        <h3>Alejandra Suarez-Arnedo, MS</h3>
+                        <h3>name6</h3>
                         <p>Research Engineer</p>
                     </div>
                 </a>
             </div>
             <p class="no-results" id="no-results">No team members match that search.</p>
+        </section>
+
+        <section class="grid-section">
+            <h2 class="section-heading">Collaborators</h2>
+            <p class="section-description">Our collaborators help extend the lab’s work across institutions and applied projects.</p>
+            <div class="people-grid">
+                <a class="person-card" href="https://example.com" target="_blank" rel="noopener">
+                    <div class="person-photo">
+                        <img src="images/people/name1.svg" alt="Collaborator 1">
+                        <div class="photo-overlay"><span>Visit website</span></div>
+                    </div>
+                    <div class="person-meta">
+                        <h3>Collaborator 1</h3>
+                        <p>External Research Partner</p>
+                    </div>
+                </a>
+                <a class="person-card" href="https://example.org" target="_blank" rel="noopener">
+                    <div class="person-photo">
+                        <img src="images/people/name2.svg" alt="Collaborator 2">
+                        <div class="photo-overlay"><span>Visit website</span></div>
+                    </div>
+                    <div class="person-meta">
+                        <h3>Collaborator 2</h3>
+                        <p>Industry Science Partner</p>
+                    </div>
+                </a>
+                <a class="person-card" href="https://example.net" target="_blank" rel="noopener">
+                    <div class="person-photo">
+                        <img src="images/people/name3.svg" alt="Collaborator 3">
+                        <div class="photo-overlay"><span>Visit website</span></div>
+                    </div>
+                    <div class="person-meta">
+                        <h3>Collaborator 3</h3>
+                        <p>Academic Collaboration</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <section class="grid-section">
+            <h2 class="section-heading">Past Members</h2>
+            <p class="section-description">Past members have helped shape the lab’s research and continue making an impact in their current roles.</p>
+            <div class="people-grid">
+                <article class="person-card">
+                    <div class="person-photo">
+                        <img src="images/people/name4.svg" alt="Past Member 1">
+                    </div>
+                    <div class="person-meta">
+                        <h3>Past Member 1</h3>
+                        <p>Past position: Research Fellow • 2022</p>
+                        <div class="person-extra">Current position: Data Scientist at Example Co.</div>
+                    </div>
+                </article>
+                <article class="person-card">
+                    <div class="person-photo">
+                        <img src="images/people/name5.svg" alt="Past Member 2">
+                    </div>
+                    <div class="person-meta">
+                        <h3>Past Member 2</h3>
+                        <p>Past position: Graduate Researcher • 2021</p>
+                        <div class="person-extra">Current position: Machine Learning Engineer.</div>
+                    </div>
+                </article>
+                <article class="person-card">
+                    <div class="person-photo">
+                        <img src="images/people/name6.svg" alt="Past Member 3">
+                    </div>
+                    <div class="person-meta">
+                        <h3>Past Member 3</h3>
+                        <p>Past position: Lab Technician • 2020</p>
+                        <div class="person-extra">Current position: Product Lead at NeuroTech Labs.</div>
+                    </div>
+                </article>
+            </div>
         </section>
     </main>
 
@@ -438,3 +528,11 @@
     </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
