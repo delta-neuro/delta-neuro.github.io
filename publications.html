@@ -173,7 +173,8 @@
         }
 
         .entries {
-            display: grid;
+            display: flex;
+            flex-wrap: wrap;
             gap: 1.6rem;
         }
         .entry {
@@ -184,6 +185,8 @@
             border: 1px solid var(--border-color);
             border-radius: 1.1rem;
             transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+            flex: 0 0 25%;
+            box-sizing: border-box;
         }
         .entry:hover {
             border-color: rgba(247, 105, 2, 0.45);
@@ -250,8 +253,8 @@
             color: var(--rit-orange);
             text-decoration: none;
         }
-        .entry-link a:hover {
-            text-decoration: underline;
+        .entry.hidden {
+            display: none !important;
         }
 
         @media (max-width: 980px) {
@@ -382,20 +385,48 @@
 
         function renderYearList(entries) {
             const yearList = document.getElementById('year-list');
-            const years = [...new Set(entries.map(item => item.year))].sort((a, b) => b - a);
+            const years = ['All', ...[...new Set(entries.map(item => item.year))].sort((a, b) => b - a)];
             yearList.innerHTML = years.map((year, index) => `
-                <li class="year-item${index === 0 ? ' active' : ''}">${year}</li>
+                <li class="year-item${index === 0 ? ' active' : ''}" data-year="${year}">${year}</li>
             `).join('');
+            // Add event listeners
+            const yearItems = yearList.querySelectorAll('.year-item');
+            yearItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    yearItems.forEach(i => i.classList.remove('active'));
+                    item.classList.add('active');
+                    const selectedYear = item.dataset.year === 'All' ? null : parseInt(item.dataset.year);
+                    filterByYear(selectedYear);
+                });
+            });
         }
 
-        function filterEntries(entries) {
+        function filterByYear(year) {
+            const allEntries = document.querySelectorAll('.entry');
+            allEntries.forEach(entry => {
+                const entryYear = parseInt(entry.querySelector('.entry-year').textContent.split(' · ')[0]);
+                if (!year || entryYear === year) {
+                    entry.classList.remove('hidden');
+                } else {
+                    entry.classList.add('hidden');
+                }
+            });
+            // Re-apply search filter if any
+            filterEntries();
+        }
+
+        function filterEntries() {
             const filterInput = document.getElementById('filter-input');
             const query = filterInput.value.trim().toLowerCase();
+            const entries = document.querySelectorAll('.entry:not(.hidden)');
             entries.forEach(entry => {
                 const keywords = entry.dataset.keywords.toLowerCase();
                 const title = entry.querySelector('.entry-title').textContent.toLowerCase();
-                const visible = !query || keywords.includes(query) || title.includes(query);
-                entry.style.display = visible ? 'grid' : 'none';
+                if (!query || keywords.includes(query) || title.includes(query)) {
+                    entry.classList.remove('hidden');
+                } else {
+                    entry.classList.add('hidden');
+                }
             });
         }
 
@@ -416,7 +447,7 @@
                 list.innerHTML = '';
                 entries.forEach(entry => list.appendChild(createEntryCard(entry)));
                 const entryCards = Array.from(list.querySelectorAll('.entry'));
-                document.getElementById('filter-input').addEventListener('input', () => filterEntries(entryCards));
+                document.getElementById('filter-input').addEventListener('input', filterEntries);
             } catch (error) {
                 list.innerHTML = '<p class="error-message">Unable to load publications. Please serve this site from a web server or check the publications folder.</p>';
                 console.error(error);
