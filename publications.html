@@ -364,15 +364,23 @@
             ].filter(Boolean).join(' ').toLowerCase();
             article.dataset.keywords = keywords;
 
+            let tagText = entry.status;
+            if (entry.status === 'Published') {
+                tagText = `Published in ${entry.venue}`;
+            } else if (entry.status === 'Under Review') {
+                tagText = 'Under review';
+            }
+
             const noteText = entry.notes ? `, ${entry.notes}` : '';
+            const venueText = (entry.status === 'Under Review' && entry.venue === 'In review') ? '' : entry.venue;
+            const venueHtml = venueText || noteText ? `<p class="entry-meta journal">${venueText}${noteText}</p>` : '';
             const linkHtml = entry.url ? `<p class="entry-link"><a href="${entry.url}" target="_blank" rel="noopener">View publication</a></p>` : '';
 
             article.innerHTML = `
-                <span class="entry-tag">${entry.type}</span>
+                <span class="entry-tag">${tagText}</span>
                 <h2 class="entry-title"><span class="highlight">${entry.title}</span></h2>
                 <p class="entry-meta">${entry.authors}</p>
-                <p class="entry-meta journal">${entry.venue}${noteText}</p>
-                <p class="entry-status">${entry.status}</p>
+                ${venueHtml}
                 <p class="entry-year">${entry.year} · ${entry.category}</p>
                 <p class="entry-subtext">${entry.abstract}</p>
                 ${linkHtml}
