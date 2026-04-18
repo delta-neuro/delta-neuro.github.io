@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -49,6 +50,7 @@
             background-color: var(--nav-bg);
             border-bottom: 1px solid var(--border-color);
         }
+
         nav a {
             color: var(--nav-text);
             text-decoration: none;
@@ -58,10 +60,12 @@
             font-size: 0.88rem;
             transition: color 0.2s;
         }
+
         nav a:hover,
         nav a[aria-current="page"] {
             color: var(--rit-orange);
         }
+
         .theme-btn {
             border: 1px solid var(--border-color);
             background: transparent;
@@ -71,6 +75,7 @@
             color: var(--nav-text);
             transition: background-color 0.2s, color 0.2s, border-color 0.2s;
         }
+
         .theme-btn:hover {
             background-color: rgba(247, 105, 2, 0.08);
         }
@@ -80,9 +85,11 @@
             margin: 0 auto;
             padding: 2rem 1.5rem 3rem;
         }
+
         .page-header {
             margin-bottom: 1.75rem;
         }
+
         .page-header h1 {
             margin: 0;
             font-size: clamp(2rem, 2.5vw, 2.9rem);
@@ -90,6 +97,7 @@
             text-transform: lowercase;
             font-weight: 700;
         }
+
         .page-header p {
             margin: 0.75rem 0 0;
             max-width: 720px;
@@ -113,6 +121,7 @@
             border: 1px solid var(--border-color);
             min-width: 160px;
         }
+
         .timeline h2 {
             margin: 0 0 1rem;
             font-size: 0.95rem;
@@ -120,6 +129,7 @@
             text-transform: uppercase;
             color: var(--text-secondary);
         }
+
         .year-list {
             margin: 0;
             padding: 0;
@@ -127,14 +137,21 @@
             display: grid;
             gap: 0.55rem;
         }
+
         .year-item {
             font-size: 0.95rem;
             color: var(--text-secondary);
             padding: 0.55rem 0.75rem;
             border-radius: 0.65rem;
+            cursor: pointer;
             transition: background-color 0.2s, color 0.2s;
         }
-        .year-item:first-child {
+
+        .year-item:hover {
+            background: rgba(247, 105, 2, 0.06);
+        }
+
+        .year-item.active {
             color: var(--rit-orange);
             font-weight: 700;
             background: rgba(247, 105, 2, 0.12);
@@ -145,6 +162,7 @@
             gap: 1.5rem;
             max-width: 740px;
         }
+
         .filter-box {
             display: flex;
             flex-wrap: wrap;
@@ -152,10 +170,12 @@
             align-items: center;
             justify-content: space-between;
         }
+
         .filter-box label {
             font-size: 0.95rem;
             color: var(--text-secondary);
         }
+
         .filter-box input {
             width: 100%;
             max-width: 420px;
@@ -166,6 +186,7 @@
             color: var(--text-main);
             background: var(--surface);
         }
+
         .filter-box input:focus {
             outline: none;
             border-color: var(--rit-orange);
@@ -176,6 +197,7 @@
             display: grid;
             gap: 1.6rem;
         }
+
         .entry {
             display: grid;
             gap: 0.9rem;
@@ -185,11 +207,13 @@
             border-radius: 1.1rem;
             transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
         }
+
         .entry:hover {
             border-color: rgba(247, 105, 2, 0.45);
             transform: translateY(-1px);
             box-shadow: 0 18px 45px rgba(15, 23, 42, 0.06);
         }
+
         .entry-tag {
             display: inline-flex;
             align-items: center;
@@ -204,33 +228,39 @@
             letter-spacing: 0.08em;
             width: fit-content;
         }
+
         .entry-title {
             margin: 0;
             font-size: 1.1rem;
             line-height: 1.45;
             font-weight: 700;
         }
+
         .entry-title .highlight {
             display: inline-block;
             background: var(--highlight-bg);
             padding: 0.12rem 0.28rem;
             border-radius: 0.35rem;
         }
+
         .entry-meta {
             margin: 0;
             color: var(--text-secondary);
             font-size: 0.95rem;
             line-height: 1.7;
         }
+
         .entry-meta .journal {
             font-style: italic;
             color: var(--text-secondary);
         }
+
         .entry-year {
             margin-top: 0.45rem;
             font-size: 0.88rem;
             color: var(--text-secondary);
         }
+
         .entry-status {
             margin: 0.35rem 0 0;
             font-size: 0.92rem;
@@ -238,18 +268,22 @@
             font-weight: 700;
             letter-spacing: 0.03em;
         }
+
         .entry-subtext {
             margin: 0.35rem 0 0;
             font-size: 0.92rem;
             color: var(--text-secondary);
         }
+
         .entry-link {
             margin-top: 0.7rem;
         }
+
         .entry-link a {
             color: var(--rit-orange);
             text-decoration: none;
         }
+
         .entry.hidden {
             display: none !important;
         }
@@ -258,6 +292,7 @@
             .layout {
                 grid-template-columns: 1fr;
             }
+
             .timeline {
                 position: relative;
                 top: 0;
@@ -266,18 +301,22 @@
                 margin-bottom: 1.5rem;
             }
         }
+
         @media (max-width: 680px) {
             nav {
                 justify-content: space-between;
                 padding: 1rem;
             }
+
             .page {
                 padding: 1.5rem 1rem 2.2rem;
             }
+
             .filter-box {
                 flex-direction: column;
                 align-items: stretch;
             }
+
             .filter-box input {
                 max-width: 100%;
             }
@@ -285,6 +324,7 @@
     </style>
     <script defer src="theme.js"></script>
 </head>
+
 <body>
     <nav>
         <a href="index.html">Home</a>
@@ -300,7 +340,8 @@
     <main class="page">
         <header class="page-header">
             <h1>publications</h1>
-            <p>Publications are organized in reverse chronological order. Use the year timeline and topic tags to scan the list quickly.</p>
+            <p>Publications are organized in reverse chronological order. Use the year timeline and topic tags to scan
+                the list quickly.</p>
         </header>
 
         <div class="layout">
@@ -312,7 +353,8 @@
             <section class="content">
                 <div class="filter-box">
                     <label for="filter-input">Type to filter</label>
-                    <input id="filter-input" type="search" placeholder="Type to filter" aria-label="Type to filter publications">
+                    <input id="filter-input" type="search" placeholder="Type to filter"
+                        aria-label="Type to filter publications">
                 </div>
 
                 <div class="entries" id="publication-list">
@@ -353,6 +395,7 @@
         function createEntryCard(entry) {
             const article = document.createElement('article');
             article.className = 'entry';
+            article.dataset.year = entry.year;
             const keywords = [
                 entry.keywords,
                 entry.title,
@@ -408,28 +451,31 @@
             });
         }
 
+        let activeYear = null; // tracks the currently selected year
+
         function filterByYear(year) {
-            const allEntries = document.querySelectorAll('.entry');
-            allEntries.forEach(entry => {
-                const entryYear = parseInt(entry.querySelector('.entry-year').textContent.split(' · ')[0]);
-                if (!year || entryYear === year) {
-                    entry.classList.remove('hidden');
-                } else {
-                    entry.classList.add('hidden');
-                }
-            });
-            // Re-apply search filter if any
-            filterEntries();
+            activeYear = year;
+            applyFilters();
         }
 
         function filterEntries() {
+            applyFilters();
+        }
+
+        function applyFilters() {
             const filterInput = document.getElementById('filter-input');
             const query = filterInput.value.trim().toLowerCase();
-            const entries = document.querySelectorAll('.entry:not(.hidden)');
-            entries.forEach(entry => {
-                const keywords = entry.dataset.keywords.toLowerCase();
+            const allEntries = document.querySelectorAll('.entry');
+
+            allEntries.forEach(entry => {
+                const entryYear = parseInt(entry.dataset.year);
+                const matchesYear = !activeYear || entryYear === activeYear;
+
+                const keywords = (entry.dataset.keywords || '').toLowerCase();
                 const title = entry.querySelector('.entry-title').textContent.toLowerCase();
-                if (!query || keywords.includes(query) || title.includes(query)) {
+                const matchesSearch = !query || keywords.includes(query) || title.includes(query);
+
+                if (matchesYear && matchesSearch) {
                     entry.classList.remove('hidden');
                 } else {
                     entry.classList.add('hidden');
@@ -470,4 +516,5 @@
         });
     </script>
 </body>
+
 </html>
