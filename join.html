@@ -297,6 +297,15 @@
             border: 1px solid rgba(17, 17, 17, 0.08);
             padding: 1.5rem;
             box-shadow: 0 15px 30px rgba(0,0,0,0.05);
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .open-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
 
         .open-card h3 {
@@ -534,8 +543,11 @@
                 grid.innerHTML = ''; // clear grid
 
                 positions.forEach(pos => {
-                    const el = document.createElement('article');
+                    const el = document.createElement(pos.link ? 'a' : 'article');
                     el.className = 'open-card';
+                    if (pos.link) {
+                        el.href = pos.link;
+                    }
                     el.innerHTML = `
                         <img loading="lazy" src="images/open_position.svg" alt="Open position illustration">
                         <h3>${pos.title}</h3>

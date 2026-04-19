@@ -75,17 +75,6 @@
         }
 
         /* Page Layout */
-        .page-header {
-            text-align: center;
-            margin: 3rem 0;
-        }
-
-        .page-header h1 {
-            font-size: 3rem;
-            color: var(--accent);
-            margin: 0;
-            font-weight: 800;
-        }
 
         .news-container {
             display: grid;
@@ -94,6 +83,7 @@
             width: min(1400px, calc(100% - 2rem));
             margin: 0 auto 6rem;
             align-items: start;
+            padding-top: 3rem;
         }
 
         /* Year Wheel Sidebar */
@@ -264,7 +254,6 @@
             nav { justify-content: space-between; gap: 0.75rem; padding: 1rem; }
             nav a, .theme-btn { font-size: 0.8rem; }
             .news-grid { grid-template-columns: 1fr; }
-            .page-header h1 { font-size: 2.2rem; }
         }
     </style>
     <script defer src="theme.js"></script>
@@ -280,10 +269,6 @@
         <a href="https://github.com/delta-neuro" target="_blank" class="github-link">GitHub ↗</a>
         <button id="theme-btn" type="button" class="theme-btn" aria-label="Switch to dark mode">🌙</button>
     </nav>
-
-    <div class="page-header">
-        <h1>Lab News</h1>
-    </div>
 
     <div class="news-container">
         <aside class="sidebar" id="sidebar-nav">

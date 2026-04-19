@@ -92,19 +92,17 @@
         .page-shell {
             width: min(1200px, calc(100% - 2rem));
             margin: 0 auto 4rem;
-            padding: 0;
+            padding-top: 3rem;
         }
 
-        .hero-section {
-            display: grid;
-            grid-template-columns: minmax(0, 1.2fr) 380px;
-            gap: 2rem;
-            align-items: center;
-            margin: 2rem auto 1.5rem;
+        .hero-copy {
+            text-align: left;
+            margin: 0;
+            flex-shrink: 0;
         }
 
         .hero-copy .eyebrow {
-            margin: 0 0 0.75rem;
+            margin: 0 0 0.5rem;
             font-size: 0.9rem;
             text-transform: uppercase;
             letter-spacing: 0.2em;
@@ -113,32 +111,18 @@
 
         .hero-copy h1 {
             margin: 0;
-            font-size: clamp(3rem, 5vw, 5rem);
+            font-size: clamp(2.5rem, 4vw, 4rem);
             line-height: 0.95;
             letter-spacing: -0.05em;
         }
 
-        .hero-copy .hero-line {
+        .search-section {
             display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 1rem;
-            margin: 1rem 0 1.5rem;
-            font-size: clamp(1.25rem, 2vw, 1.55rem);
-            font-weight: 700;
-        }
-
-        .hero-copy .hero-line .accent-divider {
-            color: var(--accent);
-            padding: 0 0.4rem;
-        }
-
-        .hero-copy p {
-            margin: 0;
-            max-width: 680px;
-            color: var(--muted);
-            line-height: 1.8;
-            font-size: 1rem;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 2rem;
+            margin: 0 auto 3rem;
+            width: 100%;
         }
 
         .search-panel {
@@ -147,6 +131,9 @@
             border-radius: 20px;
             padding: 1.5rem;
             box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 600px;
+            box-sizing: border-box;
         }
 
         .search-panel label {
@@ -171,6 +158,7 @@
             font-size: 0.95rem;
             color: var(--text);
             outline: none;
+            box-sizing: border-box;
         }
 
         .filter-group {
@@ -343,17 +331,18 @@
         }
 
         @media (max-width: 920px) {
-            .hero-section {
-                grid-template-columns: 1fr;
+            .search-section {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .search-panel {
+                max-width: 100%;
             }
             .page-shell {
                 width: calc(100% - 1.5rem);
             }
             .people-grid {
                 grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            }
-            .search-panel {
-                width: 100%;
             }
         }
 
@@ -367,14 +356,10 @@
             .theme-btn {
                 font-size: 0.8rem;
             }
-            .hero-copy .hero-line {
-                font-size: 1rem;
-            }
-            .hero-copy p {
-                font-size: 0.95rem;
-            }
             .search-row {
+                display: grid;
                 grid-template-columns: 1fr;
+                gap: 0.75rem;
             }
             .search-row button {
                 width: 100%;
@@ -419,16 +404,10 @@
     </nav>
 
     <main class="page-shell">
-        <section class="hero-section">
+        <section class="search-section">
             <div class="hero-copy">
                 <p class="eyebrow">say hello to</p>
                 <h1>OUR LAB</h1>
-                <div class="hero-line">
-                    <span>MOTIVATED</span>
-                    <span class="accent-divider">|</span>
-                    <span>PASSIONATE SCIENTISTS</span>
-                </div>
-                <p id="hero-subtitle">Loading team content...</p>
             </div>
 
             <aside class="search-panel">
