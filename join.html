@@ -405,27 +405,9 @@
                 </div>
             </div>
 
-            <div class="open-cards">
-                    <article class="open-card">
-                    <img loading="lazy" src="images/open_position.svg" alt="Open position illustration">
-                    <h3 id="open1-title"></h3>
-                    <div class="meta" id="open1-meta"></div>
-                    <p id="open1-desc"></p>
-                </article>
-
-                <article class="open-card">
-                    <img loading="lazy" src="images/open_position.svg" alt="Open position illustration">
-                    <h3 id="open2-title"></h3>
-                    <div class="meta" id="open2-meta"></div>
-                    <p id="open2-desc"></p>
-                </article>
-
-                <article class="open-card">
-                    <img loading="lazy" src="images/open_position.svg" alt="Open position illustration">
-                    <h3 id="open3-title"></h3>
-                    <div class="meta" id="open3-meta"></div>
-                    <p id="open3-desc"></p>
-                </article>
+            <div id="open-loading" style="text-align: center; padding: 2rem; color: var(--muted);">Loading open positions...</div>
+            <div class="open-cards" id="open-cards-grid">
+                <!-- Dynamically populated via JS -->
             </div>
         </section>
     </main>
@@ -438,15 +420,6 @@
             masters: 'masters-text',
             undergrad: 'undergrad-text',
             open_intro: 'open-intro',
-            open1_title: 'open1-title',
-            open1_meta: 'open1-meta',
-            open1_desc: 'open1-desc',
-            open2_title: 'open2-title',
-            open2_meta: 'open2-meta',
-            open2_desc: 'open2-desc',
-            open3_title: 'open3-title',
-            open3_meta: 'open3-meta',
-            open3_desc: 'open3-desc',
             position_image_caption: 'position-image-caption'
         };
 
@@ -483,7 +456,40 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', loadJoinText);
+        async function loadOpenPositionsConfig() {
+            try {
+                const res = await fetch('text_content/open_positions.json');
+                if (!res.ok) throw new Error('Failed to load open positions config');
+                const positions = await res.json();
+                const grid = document.getElementById('open-cards-grid');
+                grid.innerHTML = ''; // clear grid
+
+                positions.forEach(pos => {
+                    const el = document.createElement('article');
+                    el.className = 'open-card';
+                    el.innerHTML = `
+                        <img loading="lazy" src="images/open_position.svg" alt="Open position illustration">
+                        <h3>${pos.title}</h3>
+                        <div class="meta">${pos.meta}</div>
+                        <p>${pos.description}</p>
+                    `;
+                    grid.appendChild(el);
+                });
+
+                document.getElementById('open-loading').style.display = 'none';
+            } catch (err) {
+                console.error(err);
+                const msg = window.location.protocol === 'file:' 
+                    ? 'Unable to load open positions locally (CORS issue).' 
+                    : 'Error loading open positions.';
+                document.getElementById('open-loading').textContent = msg;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadJoinText();
+            loadOpenPositionsConfig();
+        });
     </script>
 </body>
 </html>
