@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Collaborator 1",
+    "role": "External Research Partner",
+    "image": "images/people/name1.svg",
+    "link": "https://example.com"
+  },
+  {
+    "name": "Collaborator 2",
+    "role": "Industry Science Partner",
+    "image": "images/people/name2.svg",
+    "link": "https://example.org"
+  },
+  {
+    "name": "Collaborator 3",
+    "role": "Academic Collaboration",
+    "image": "images/people/name3.svg",
+    "link": "https://example.net"
+  }
+]

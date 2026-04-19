@@ -1,0 +1,44 @@
+[
+  {
+    "id": "name1",
+    "name": "name1",
+    "role": "Principal Investigator",
+    "image": "images/people/name1.svg",
+    "link": "people/name1.html"
+  },
+  {
+    "id": "name2",
+    "name": "name2",
+    "role": "Project Manager",
+    "image": "images/people/name2.svg",
+    "link": "people/name2.html"
+  },
+  {
+    "id": "name3",
+    "name": "name3",
+    "role": "Postdoctoral Fellow",
+    "image": "images/people/name3.svg",
+    "link": "people/name3.html"
+  },
+  {
+    "id": "name4",
+    "name": "name4",
+    "role": "Research Scientist",
+    "image": "images/people/name4.svg",
+    "link": "people/name4.html"
+  },
+  {
+    "id": "name5",
+    "name": "name5",
+    "role": "Graduate Student",
+    "image": "images/people/name5.svg",
+    "link": "people/name5.html"
+  },
+  {
+    "id": "name6",
+    "name": "name6",
+    "role": "Research Engineer",
+    "image": "images/people/name6.svg",
+    "link": "people/name6.html"
+  }
+]

@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Past Member 1",
+    "past_role": "Research Fellow",
+    "year": "2022",
+    "current_role": "Data Scientist at Example Co.",
+    "image": "images/people/name4.svg"
+  },
+  {
+    "name": "Past Member 2",
+    "past_role": "Graduate Researcher",
+    "year": "2021",
+    "current_role": "Machine Learning Engineer.",
+    "image": "images/people/name5.svg"
+  },
+  {
+    "name": "Past Member 3",
+    "past_role": "Lab Technician",
+    "year": "2020",
+    "current_role": "Product Lead at NeuroTech Labs.",
+    "image": "images/people/name6.svg"
+  }
+]

@@ -77,10 +77,6 @@
             color: var(--accent);
         }
 
-        nav a[aria-current="page"] {
-            color: var(--accent);
-        }
-
         .github-link {
             color: var(--accent);
         }
@@ -339,6 +335,13 @@
             font-size: 1rem;
         }
 
+        /* Loading View */
+        .loading-view {
+            text-align: center;
+            padding: 3rem;
+            color: var(--muted);
+        }
+
         @media (max-width: 920px) {
             .hero-section {
                 grid-template-columns: 1fr;
@@ -449,67 +452,9 @@
         </section>
 
         <section class="grid-section">
+            <div id="team-loading" class="loading-view">Loading team members...</div>
             <div class="people-grid" id="people-grid">
-                <a class="person-card team-person-card" href="people/name1.html" data-name="name1" data-role="Principal Investigator">
-                    <div class="person-photo">
-                        <img loading="lazy" src="images/people/name1.svg" alt="name1">
-                        <div class="photo-overlay"><span>View profile</span></div>
-                    </div>
-                    <div class="person-meta">
-                        <h3>name1</h3>
-                        <p>Principal Investigator</p>
-                    </div>
-                </a>
-                <a class="person-card team-person-card" href="people/name2.html" data-name="name2" data-role="Project Manager">
-                    <div class="person-photo">
-                        <img loading="lazy" src="images/people/name2.svg" alt="name2">
-                        <div class="photo-overlay"><span>View profile</span></div>
-                    </div>
-                    <div class="person-meta">
-                        <h3>name2</h3>
-                        <p>Project Manager</p>
-                    </div>
-                </a>
-                <a class="person-card team-person-card" href="people/name3.html" data-name="name3" data-role="Postdoctoral Fellow">
-                    <div class="person-photo">
-                        <img loading="lazy" src="images/people/name3.svg" alt="name3">
-                        <div class="photo-overlay"><span>View profile</span></div>
-                    </div>
-                    <div class="person-meta">
-                        <h3>name3</h3>
-                        <p>Postdoctoral Fellow</p>
-                    </div>
-                </a>
-                <a class="person-card team-person-card" href="people/name4.html" data-name="name4" data-role="Research Scientist">
-                    <div class="person-photo">
-                        <img loading="lazy" src="images/people/name4.svg" alt="name4">
-                        <div class="photo-overlay"><span>View profile</span></div>
-                    </div>
-                    <div class="person-meta">
-                        <h3>name4</h3>
-                        <p>Research Scientist</p>
-                    </div>
-                </a>
-                <a class="person-card team-person-card" href="people/name5.html" data-name="name5" data-role="Graduate Student">
-                    <div class="person-photo">
-                        <img loading="lazy" src="images/people/name5.svg" alt="name5">
-                        <div class="photo-overlay"><span>View profile</span></div>
-                    </div>
-                    <div class="person-meta">
-                        <h3>name5</h3>
-                        <p>Graduate Student</p>
-                    </div>
-                </a>
-                <a class="person-card team-person-card" href="people/name6.html" data-name="name6" data-role="Research Engineer">
-                    <div class="person-photo">
-                        <img loading="lazy" src="images/people/name6.svg" alt="name6">
-                        <div class="photo-overlay"><span>View profile</span></div>
-                    </div>
-                    <div class="person-meta">
-                        <h3>name6</h3>
-                        <p>Research Engineer</p>
-                    </div>
-                </a>
+                <!-- Dynamically populated via JS -->
             </div>
             <p class="no-results" id="no-results">No team members match that search.</p>
         </section>
@@ -517,77 +462,18 @@
         <section class="grid-section">
             <h2 class="section-heading">Collaborators</h2>
             <p class="section-description">Our collaborators help extend the lab’s work across institutions and applied projects.</p>
-            <div class="people-grid">
-                <a class="person-card" href="https://example.com" target="_blank" rel="noopener">
-                    <div class="person-photo">
-                        <img loading="lazy" src="images/people/name1.svg" alt="Collaborator 1">
-                        <div class="photo-overlay"><span>Visit website</span></div>
-                    </div>
-                    <div class="person-meta">
-                        <h3>Collaborator 1</h3>
-                        <p>External Research Partner</p>
-                    </div>
-                </a>
-                <a class="person-card" href="https://example.org" target="_blank" rel="noopener">
-                    <div class="person-photo">
-                        <img loading="lazy" src="images/people/name2.svg" alt="Collaborator 2">
-                        <div class="photo-overlay"><span>Visit website</span></div>
-                    </div>
-                    <div class="person-meta">
-                        <h3>Collaborator 2</h3>
-                        <p>Industry Science Partner</p>
-                    </div>
-                </a>
-                <a class="person-card" href="https://example.net" target="_blank" rel="noopener">
-                    <div class="person-photo">
-                        <img loading="lazy" src="images/people/name3.svg" alt="Collaborator 3">
-                        <div class="photo-overlay"><span>Visit website</span></div>
-                    </div>
-                    <div class="person-meta">
-                        <h3>Collaborator 3</h3>
-                        <p>Academic Collaboration</p>
-                    </div>
-                </a>
+            <div id="collaborators-loading" class="loading-view">Loading collaborators...</div>
+            <div class="people-grid" id="collaborators-grid">
+                <!-- Dynamically populated via JS -->
             </div>
         </section>
 
         <section class="grid-section">
             <h2 class="section-heading">Past Members</h2>
             <p class="section-description">Past members have helped shape the lab’s research and continue making an impact in their current roles.</p>
-            <div class="people-grid">
-                <article class="person-card">
-                    <div class="person-photo">
-                        <img loading="lazy" src="images/people/name4.svg" alt="Past Member 1">
-                        <div class="photo-overlay"><span>View details</span></div>
-                    </div>
-                    <div class="person-meta">
-                        <h3>Past Member 1</h3>
-                        <p>Past position: Research Fellow • 2022</p>
-                        <div class="person-extra">Current position: Data Scientist at Example Co.</div>
-                    </div>
-                </article>
-                <article class="person-card">
-                    <div class="person-photo">
-                        <img loading="lazy" src="images/people/name5.svg" alt="Past Member 2">
-                        <div class="photo-overlay"><span>View details</span></div>
-                    </div>
-                    <div class="person-meta">
-                        <h3>Past Member 2</h3>
-                        <p>Past position: Graduate Researcher • 2021</p>
-                        <div class="person-extra">Current position: Machine Learning Engineer.</div>
-                    </div>
-                </article>
-                <article class="person-card">
-                    <div class="person-photo">
-                        <img loading="lazy" src="images/people/name6.svg" alt="Past Member 3">
-                        <div class="photo-overlay"><span>View details</span></div>
-                    </div>
-                    <div class="person-meta">
-                        <h3>Past Member 3</h3>
-                        <p>Past position: Lab Technician • 2020</p>
-                        <div class="person-extra">Current position: Product Lead at NeuroTech Labs.</div>
-                    </div>
-                </article>
+            <div id="past-loading" class="loading-view">Loading past members...</div>
+            <div class="people-grid" id="past-grid">
+                <!-- Dynamically populated via JS -->
             </div>
         </section>
     </main>
@@ -597,8 +483,10 @@
         const filterButton = document.getElementById('filter-btn');
         const filterMenu = document.getElementById('filter-menu');
         const filterOptions = Array.from(document.querySelectorAll('.filter-option'));
-        const cards = Array.from(document.querySelectorAll('.person-card.team-person-card'));
         const noResults = document.getElementById('no-results');
+        
+        let teamCardsDOM = []; // Will store references to DOM elements for filtering
+
         const contentMap = {
             hero_subtitle: 'hero-subtitle',
             search_placeholder: 'team-search',
@@ -616,19 +504,6 @@
                 data[key.trim()] = rest.join('=').trim();
             });
             return data;
-        }
-
-        function filterTeam() {
-            const query = searchInput.value.trim().toLowerCase();
-            let visibleCount = 0;
-            cards.forEach(card => {
-                const name = card.dataset.name.toLowerCase();
-                const role = card.dataset.role.toLowerCase();
-                const match = !query || name.includes(query) || role.includes(query);
-                card.style.display = match ? 'block' : 'none';
-                if (match) visibleCount += 1;
-            });
-            noResults.style.display = visibleCount ? 'none' : 'block';
         }
 
         async function loadTeamText() {
@@ -652,6 +527,122 @@
             }
         }
 
+        function filterTeam() {
+            const query = searchInput.value.trim().toLowerCase();
+            let visibleCount = 0;
+            teamCardsDOM.forEach(card => {
+                const name = card.dataset.name.toLowerCase();
+                const role = card.dataset.role.toLowerCase();
+                const match = !query || name.includes(query) || role.includes(query);
+                card.style.display = match ? 'block' : 'none';
+                if (match) visibleCount += 1;
+            });
+            noResults.style.display = visibleCount ? 'none' : 'block';
+        }
+
+        // Fetch configs and render
+        async function loadPeopleConfigs() {
+            const protocolFileMsg = 'Unable to load locally (CORS issue). Please use a web server.';
+            
+            // 1. Load Main Team
+            try {
+                const res = await fetch('text_content/people/team.json');
+                if (!res.ok) throw new Error('Failed to load team config');
+                const teamData = await res.json();
+                const grid = document.getElementById('people-grid');
+                
+                teamData.forEach(person => {
+                    const el = document.createElement('a');
+                    el.className = 'person-card team-person-card';
+                    el.href = person.link || '#';
+                    el.dataset.name = person.name;
+                    el.dataset.role = person.role;
+                    
+                    el.innerHTML = `
+                        <div class="person-photo">
+                            <img loading="lazy" src="${person.image}" alt="${person.name}">
+                            <div class="photo-overlay"><span>View profile</span></div>
+                        </div>
+                        <div class="person-meta">
+                            <h3>${person.name}</h3>
+                            <p>${person.role}</p>
+                        </div>
+                    `;
+                    grid.appendChild(el);
+                    teamCardsDOM.push(el); // track for search filter
+                });
+                
+                document.getElementById('team-loading').style.display = 'none';
+            } catch (err) {
+                console.error(err);
+                document.getElementById('team-loading').textContent = window.location.protocol === 'file:' ? protocolFileMsg : 'Error loading team.';
+            }
+
+            // 2. Load Collaborators
+            try {
+                const res = await fetch('text_content/people/collaborators.json');
+                if (!res.ok) throw new Error('Failed to load collaborators config');
+                const collabData = await res.json();
+                const grid = document.getElementById('collaborators-grid');
+                
+                collabData.forEach(person => {
+                    const el = document.createElement('a');
+                    el.className = 'person-card';
+                    el.href = person.link || '#';
+                    el.target = '_blank';
+                    el.rel = 'noopener';
+                    
+                    el.innerHTML = `
+                        <div class="person-photo">
+                            <img loading="lazy" src="${person.image}" alt="${person.name}">
+                            <div class="photo-overlay"><span>Visit website</span></div>
+                        </div>
+                        <div class="person-meta">
+                            <h3>${person.name}</h3>
+                            <p>${person.role}</p>
+                        </div>
+                    `;
+                    grid.appendChild(el);
+                });
+                
+                document.getElementById('collaborators-loading').style.display = 'none';
+            } catch (err) {
+                console.error(err);
+                document.getElementById('collaborators-loading').textContent = window.location.protocol === 'file:' ? protocolFileMsg : 'Error loading collaborators.';
+            }
+
+            // 3. Load Past Members
+            try {
+                const res = await fetch('text_content/people/past.json');
+                if (!res.ok) throw new Error('Failed to load past members config');
+                const pastData = await res.json();
+                const grid = document.getElementById('past-grid');
+                
+                pastData.forEach(person => {
+                    const el = document.createElement('article');
+                    el.className = 'person-card';
+                    
+                    el.innerHTML = `
+                        <div class="person-photo">
+                            <img loading="lazy" src="${person.image}" alt="${person.name}">
+                            <div class="photo-overlay"><span>View details</span></div>
+                        </div>
+                        <div class="person-meta">
+                            <h3>${person.name}</h3>
+                            <p>Past position: ${person.past_role} • ${person.year}</p>
+                            <div class="person-extra">Current position: ${person.current_role}</div>
+                        </div>
+                    `;
+                    grid.appendChild(el);
+                });
+                
+                document.getElementById('past-loading').style.display = 'none';
+            } catch (err) {
+                console.error(err);
+                document.getElementById('past-loading').textContent = window.location.protocol === 'file:' ? protocolFileMsg : 'Error loading past members.';
+            }
+        }
+
         filterButton.addEventListener('click', () => {
             filterMenu.classList.toggle('show');
         });
@@ -671,9 +662,10 @@
         });
 
         searchInput.addEventListener('input', filterTeam);
+        
         document.addEventListener('DOMContentLoaded', () => {
             loadTeamText();
-            filterTeam();
+            loadPeopleConfigs();
         });
     </script>
 </body>
