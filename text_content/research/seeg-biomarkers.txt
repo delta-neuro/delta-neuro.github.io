@@ -1,0 +1,4 @@
+Image=https://placehold.co/800x400/111111/F76902?text=SEEG+Biomarkers
+Funding=NIH
+Team=name1, name3, name6
+Description=Stereoelectroencephalography (SEEG) provides high-resolution mapping of the brain's electrical activity. We are building AI-driven diagnostic tools to automatically identify epileptogenic zones from SEEG recordings, aiming to improve the success rate of epilepsy surgeries by providing precise, interpretable biomarkers.

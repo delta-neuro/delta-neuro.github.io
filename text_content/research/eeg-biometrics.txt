@@ -1,0 +1,4 @@
+Image=https://placehold.co/800x400/111111/F76902?text=EEG+Biometrics
+Funding=DoD
+Team=name2, name4
+Description=Brain waves offer a unique, continuous, and highly secure biometric signature. This project focuses on developing robust machine learning pipelines to extract stable individual-specific features from EEG signals for continuous authentication, ensuring privacy and resilience against spoofing attacks.

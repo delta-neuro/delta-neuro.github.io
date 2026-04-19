@@ -1,0 +1,14 @@
+[
+  {
+    "id": "eeg-representations",
+    "title": "Learning EEG representations"
+  },
+  {
+    "id": "eeg-biometrics",
+    "title": "EEG biometrics"
+  },
+  {
+    "id": "seeg-biomarkers",
+    "title": "SEEG biomarkers for epilepsy surgery"
+  }
+]

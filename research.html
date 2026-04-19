@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research | Delta Neuro Lab</title>
+    <style>
+        :root {
+            --bg: #ffffff;
+            --surface: #ffffff;
+            --nav: #000000;
+            --nav-text: #ffffff;
+            --text: #111111;
+            --muted: #777777;
+            --accent: #F76902;
+            --border: #e5e5e5;
+            --shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Roboto, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-mode {
+            --bg: #111111;
+            --surface: #1a1a1a;
+            --text: #f2f2f2;
+            --muted: #aaaaaa;
+            --nav: #000000;
+            --border: #333333;
+            --shadow: 0 4px 20px rgba(0,0,0,0.4);
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.2rem 1rem;
+            background: var(--nav);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        nav a, .theme-btn {
+            color: var(--nav-text);
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 0.7px;
+            font-size: 0.92rem;
+            transition: color 0.2s ease;
+        }
+
+        nav a:hover, nav a[aria-current="page"] {
+            color: var(--accent);
+        }
+
+        .github-link {
+            color: var(--accent);
+        }
+
+        .theme-btn {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.35);
+            border-radius: 9999px;
+            padding: 0.55rem 0.95rem;
+            cursor: pointer;
+        }
+
+        /* Research Layout */
+        .research-container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 3rem;
+            width: min(1200px, calc(100% - 2rem));
+            margin: 4rem auto 6rem;
+            align-items: start;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: sticky;
+            top: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            padding-right: 1rem;
+        }
+
+        .thrust-btn {
+            background: transparent;
+            border: none;
+            text-align: left;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--muted);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            padding: 0;
+            line-height: 1.4;
+            font-family: inherit;
+        }
+
+        .thrust-btn:hover {
+            color: var(--text);
+        }
+
+        .thrust-btn.active {
+            color: var(--text);
+            font-weight: 700;
+        }
+
+        /* Content Area */
+        .content-area {
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .project-image {
+            width: 100%;
+            height: auto;
+            max-height: 500px;
+            object-fit: contain;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            box-shadow: var(--shadow);
+        }
+
+        .content-header h1 {
+            font-size: 2.2rem;
+            margin: 0 0 1.5rem;
+            line-height: 1.2;
+            font-weight: 800;
+            color: var(--text);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .content-header h1::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 100%;
+            height: 4px;
+            background-color: var(--accent);
+        }
+
+        .meta-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+            color: var(--text);
+        }
+
+        .meta-info p {
+            margin: 0;
+        }
+
+        .team-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .team-link:hover {
+            text-decoration: underline;
+        }
+
+        .description-block {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text);
+        }
+
+        .description-block p {
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Loading State */
+        .loading-spinner {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border: 3px solid rgba(247,105,2,0.3);
+            border-radius: 50%;
+            border-top-color: var(--accent);
+            animation: spin 1s ease-in-out infinite;
+            margin: 2rem auto;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 900px) {
+            .research-container {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                position: static;
+                flex-direction: row;
+                overflow-x: auto;
+                padding-bottom: 1rem;
+                border-bottom: 1px solid var(--border);
+            }
+            .thrust-btn {
+                flex: 0 0 auto;
+                font-size: 1rem;
+            }
+        }
+    </style>
+    <script defer src="theme.js"></script>
+</head>
+<body>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="team.html">Our Team</a>
+        <a href="research.html" aria-current="page">Research</a>
+        <a href="publications.html">Publications</a>
+        <a href="news.html">News</a>
+        <a href="join.html">Join Us</a>
+        <a href="https://github.com/delta-neuro" target="_blank" class="github-link">GitHub ↗</a>
+        <button id="theme-btn" type="button" class="theme-btn" aria-label="Switch to dark mode">🌙</button>
+    </nav>
+
+    <div class="research-container">
+        <aside class="sidebar" id="sidebar-nav">
+            <!-- Buttons injected via JS -->
+        </aside>
+
+        <main class="content-area" id="content-area">
+            <div id="loading-view" style="text-align: center;">
+                <div class="loading-spinner"></div>
+            </div>
+            
+            <div id="project-view" style="display: none;">
+                <img id="project-image" class="project-image" src="" alt="" style="display: none;" />
+                
+                <div class="content-header">
+                    <h1 id="project-title">Project Title</h1>
+                </div>
+                
+                <div class="meta-info">
+                    <p><strong>Funding sources:</strong> <span id="project-funding"></span></p>
+                    <p><strong>Team:</strong> <span id="project-team"></span></p>
+                </div>
+                
+                <div class="description-block" id="project-description">
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const sidebarNav = document.getElementById('sidebar-nav');
+        const loadingView = document.getElementById('loading-view');
+        const projectView = document.getElementById('project-view');
+        const contentArea = document.getElementById('content-area');
+
+        // Parse custom text format
+        function parseTextContent(text) {
+            const data = { Description: [] };
+            let isParsingDescription = false;
+
+            text.split('\n').forEach(line => {
+                const trimmed = line.trim();
+                if (!trimmed) return;
+
+                if (isParsingDescription) {
+                    data.Description.push(trimmed);
+                    return;
+                }
+
+                const separatorIndex = trimmed.indexOf('=');
+                if (separatorIndex > -1) {
+                    const key = trimmed.substring(0, separatorIndex).trim();
+                    const value = trimmed.substring(separatorIndex + 1).trim();
+                    if (key === 'Description') {
+                        isParsingDescription = true;
+                        if (value) data.Description.push(value);
+                    } else {
+                        data[key] = value;
+                    }
+                } else if (trimmed.startsWith('Description')) {
+                    isParsingDescription = true;
+                }
+            });
+            return data;
+        }
+
+        // Generate hyperlinked team string
+        function formatTeamLinks(teamString) {
+            if (!teamString) return 'TBA';
+            const names = teamString.split(',').map(n => n.trim());
+            return names.map(name => `<a href="team.html" class="team-link">${name}</a>`).join(', ');
+        }
+
+        async function loadProjectDetails(id, title) {
+            projectView.style.display = 'none';
+            loadingView.style.display = 'block';
+            
+            contentArea.style.animation = 'none';
+            contentArea.offsetHeight; 
+            contentArea.style.animation = 'fadeIn 0.4s ease forwards';
+
+            try {
+                const response = await fetch(`text_content/research/${id}.txt`);
+                if (!response.ok) throw new Error('Failed to load project details');
+                
+                const text = await response.text();
+                const data = parseTextContent(text);
+
+                document.getElementById('project-title').textContent = title;
+                
+                const imgEl = document.getElementById('project-image');
+                if (data.Image) {
+                    imgEl.src = data.Image;
+                    imgEl.alt = title;
+                    imgEl.style.display = 'block';
+                } else {
+                    imgEl.style.display = 'none';
+                }
+
+                document.getElementById('project-funding').textContent = data.Funding || 'N/A';
+                document.getElementById('project-team').innerHTML = formatTeamLinks(data.Team);
+                
+                const descHtml = data.Description.map(p => `<p>${p}</p>`).join('');
+                document.getElementById('project-description').innerHTML = descHtml || '<p>No description available.</p>';
+
+            } catch (error) {
+                console.error(error);
+                document.getElementById('project-title').textContent = title;
+                document.getElementById('project-image').style.display = 'none';
+                document.getElementById('project-funding').textContent = 'Error loading';
+                document.getElementById('project-team').innerHTML = 'Error loading';
+                document.getElementById('project-description').innerHTML = `<p>Error loading content for ${id}. Please check if text_content/research/${id}.txt exists.</p>`;
+            } finally {
+                loadingView.style.display = 'none';
+                projectView.style.display = 'block';
+            }
+        }
+
+        async function initResearchPage() {
+            try {
+                const response = await fetch('text_content/research/config.json');
+                if (!response.ok) throw new Error('Config file not found');
+                
+                const projects = await response.json();
+                
+                projects.forEach((proj, index) => {
+                    const btn = document.createElement('button');
+                    btn.className = 'thrust-btn';
+                    btn.textContent = proj.title;
+                    btn.setAttribute('data-id', proj.id);
+                    
+                    btn.addEventListener('click', () => {
+                        document.querySelectorAll('.thrust-btn').forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        loadProjectDetails(proj.id, proj.title);
+                    });
+
+                    sidebarNav.appendChild(btn);
+
+                    if (index === 0) {
+                        btn.classList.add('active');
+                        loadProjectDetails(proj.id, proj.title);
+                    }
+                });
+
+            } catch (error) {
+                console.error('Initialization error:', error);
+                const message = window.location.protocol === 'file:'
+                    ? 'Unable to load config from a local file. Please serve the page over HTTP (e.g. using VS Code Live Server or Python http.server) to view it locally.'
+                    : 'Unable to load research projects config. Please make sure config.json exists.';
+                loadingView.innerHTML = `<p>${message}</p>`;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', initResearchPage);
+    </script>
+</body>
+</html>

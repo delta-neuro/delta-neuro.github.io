@@ -1,0 +1,4 @@
+Image=https://placehold.co/800x400/111111/F76902?text=Learning+EEG+Representations
+Funding=NSF, NIH
+Team=name1, name5
+Description=A primary factor for the success of machine learning is the quality of labeled training data. We develop deep learning techniques capable of leveraging simulation data and transferring it to real data-based tasks. In this process, we address the discrepancy between these two domains of data arising from model simplifications.
