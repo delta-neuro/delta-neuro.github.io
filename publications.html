@@ -111,50 +111,55 @@
             gap: 2rem;
         }
 
-        .timeline {
+        .sidebar {
             position: sticky;
-            top: 1.5rem;
-            align-self: start;
-            padding: 1rem 0.75rem;
-            border-radius: 1rem;
-            background: var(--surface);
-            border: 1px solid var(--border-color);
-            min-width: 160px;
+            top: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            border-right: 1px solid var(--border-color);
+            padding-right: 1rem;
         }
 
-        .timeline h2 {
+        .sidebar h2 {
             margin: 0 0 1rem;
             font-size: 0.95rem;
             letter-spacing: 0.08em;
             text-transform: uppercase;
             color: var(--text-secondary);
+            text-align: right;
         }
 
         .year-list {
             margin: 0;
             padding: 0;
             list-style: none;
-            display: grid;
-            gap: 0.55rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
         }
 
-        .year-item {
-            font-size: 0.95rem;
+        .year-btn {
+            background: transparent;
+            border: none;
+            text-align: right;
+            font-size: 1.25rem;
+            font-weight: 600;
             color: var(--text-secondary);
-            padding: 0.55rem 0.75rem;
-            border-radius: 0.65rem;
             cursor: pointer;
-            transition: background-color 0.2s, color 0.2s;
+            transition: all 0.2s ease;
+            padding: 0.5rem;
+            font-family: inherit;
+            width: 100%;
         }
 
-        .year-item:hover {
-            background: rgba(247, 105, 2, 0.06);
-        }
-
-        .year-item.active {
+        .year-btn:hover {
             color: var(--rit-orange);
-            font-weight: 700;
-            background: rgba(247, 105, 2, 0.12);
+        }
+
+        .year-btn.active {
+            color: var(--text-main);
+            font-weight: 800;
         }
 
         .content {
@@ -293,12 +298,30 @@
                 grid-template-columns: 1fr;
             }
 
-            .timeline {
-                position: relative;
-                top: 0;
+            .sidebar {
+                position: static;
+                flex-direction: row;
                 border-right: none;
                 border-bottom: 1px solid var(--border-color);
+                padding-bottom: 1rem;
                 margin-bottom: 1.5rem;
+                overflow-x: auto;
+            }
+
+            .sidebar h2 {
+                display: none;
+            }
+
+            .year-list {
+                flex-direction: row;
+                width: 100%;
+                gap: 0.5rem;
+            }
+
+            .year-btn {
+                text-align: center;
+                white-space: nowrap;
+                width: auto;
             }
         }
 
@@ -345,8 +368,7 @@
         </header>
 
         <div class="layout">
-            <aside class="timeline">
-                <h2>Year</h2>
+            <aside class="sidebar">
                 <ul class="year-list" id="year-list"></ul>
             </aside>
 
@@ -437,10 +459,10 @@
             const yearList = document.getElementById('year-list');
             const years = ['All', ...[...new Set(entries.map(item => item.year))].sort((a, b) => b - a)];
             yearList.innerHTML = years.map((year, index) => `
-                <li class="year-item${index === 0 ? ' active' : ''}" data-year="${year}">${year}</li>
+                <li><button class="year-btn${index === 0 ? ' active' : ''}" data-year="${year}">${year}</button></li>
             `).join('');
             // Add event listeners
-            const yearItems = yearList.querySelectorAll('.year-item');
+            const yearItems = yearList.querySelectorAll('.year-btn');
             yearItems.forEach(item => {
                 item.addEventListener('click', () => {
                     yearItems.forEach(i => i.classList.remove('active'));
