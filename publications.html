@@ -7,27 +7,27 @@
     <title>Delta Neuro Lab | Publications</title>
     <style>
         :root {
-            --bg-color: #ffffff;
-            --text-main: #111111;
-            --text-secondary: #5f6368;
-            --rit-orange: #F76902;
-            --nav-bg: #ffffff;
-            --nav-text: #111111;
+            --bg: #ffffff;
             --surface: #ffffff;
-            --border-color: #e5e7eb;
+            --nav: #ffffff;
+            --nav-text: #111111;
+            --text: #111111;
+            --muted: #5f6368;
+            --accent: #F76902;
+            --border: #e5e7eb;
             --tag-bg: #F76902;
             --tag-text: #ffffff;
             --highlight-bg: rgba(247, 105, 2, 0.14);
         }
 
         body.dark-mode {
-            --bg-color: #111111;
-            --text-main: #f2f2f2;
-            --text-secondary: #bdbdbd;
-            --nav-bg: #000000;
-            --nav-text: #ffffff;
+            --bg: #111111;
             --surface: #1a1a1a;
-            --border-color: #333333;
+            --nav: #000000;
+            --nav-text: #ffffff;
+            --text: #f2f2f2;
+            --muted: #bdbdbd;
+            --border: #333333;
             --tag-bg: #fb923c;
             --highlight-bg: rgba(247, 105, 2, 0.18);
         }
@@ -35,8 +35,8 @@
         body {
             margin: 0;
             font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
+            background-color: var(--bg);
+            color: var(--text);
             transition: background-color 0.3s, color 0.3s;
         }
 
@@ -47,15 +47,15 @@
             flex-wrap: wrap;
             gap: 1rem;
             padding: 1.25rem 1.5rem;
-            background-color: var(--nav-bg);
-            border-bottom: 1px solid var(--border-color);
+            background-color: var(--nav);
+            border-bottom: 1px solid var(--border);
         }
 
         nav a {
             color: var(--nav-text);
             text-decoration: none;
             font-weight: 500;
-            text-transform: uppercase;
+            text-transform: none;
             letter-spacing: 0.5px;
             font-size: 0.88rem;
             transition: color 0.2s;
@@ -63,11 +63,11 @@
 
         nav a:hover,
         nav a[aria-current="page"] {
-            color: var(--rit-orange);
+            color: var(--accent);
         }
 
         .theme-btn {
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--border);
             background: transparent;
             padding: 0.65rem 0.9rem;
             border-radius: 0.65rem;
@@ -81,7 +81,7 @@
         }
 
         .page {
-            max-width: 1300px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 3rem 1.5rem 3rem;
         }
@@ -98,7 +98,7 @@
             display: flex;
             flex-direction: column;
             gap: 1rem;
-            border-right: 1px solid var(--border-color);
+            border-right: 1px solid var(--border);
             padding-right: 1rem;
         }
 
@@ -107,7 +107,7 @@
             font-size: 0.95rem;
             letter-spacing: 0.08em;
             text-transform: uppercase;
-            color: var(--text-secondary);
+            color: var(--muted);
             text-align: right;
         }
 
@@ -126,7 +126,7 @@
             text-align: right;
             font-size: 1.25rem;
             font-weight: 600;
-            color: var(--text-secondary);
+            color: var(--muted);
             cursor: pointer;
             transition: all 0.2s ease;
             padding: 0.5rem;
@@ -135,11 +135,11 @@
         }
 
         .year-btn:hover {
-            color: var(--rit-orange);
+            color: var(--accent);
         }
 
         .year-btn.active {
-            color: var(--text-main);
+            color: var(--text);
             font-weight: 800;
         }
 
@@ -159,23 +159,23 @@
 
         .filter-box label {
             font-size: 0.95rem;
-            color: var(--text-secondary);
+            color: var(--muted);
         }
 
         .filter-box input {
             width: 100%;
             max-width: 420px;
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--border);
             border-radius: 0.85rem;
             padding: 0.9rem 1rem;
             font-size: 0.95rem;
-            color: var(--text-main);
+            color: var(--text);
             background: var(--surface);
         }
 
         .filter-box input:focus {
             outline: none;
-            border-color: var(--rit-orange);
+            border-color: var(--accent);
             box-shadow: 0 0 0 4px rgba(247, 105, 2, 0.08);
         }
 
@@ -189,7 +189,7 @@
             gap: 0.9rem;
             padding: 1.4rem 1.45rem;
             background: var(--surface);
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--border);
             border-radius: 1.1rem;
             transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
         }
@@ -232,26 +232,26 @@
 
         .entry-meta {
             margin: 0;
-            color: var(--text-secondary);
+            color: var(--muted);
             font-size: 0.95rem;
             line-height: 1.7;
         }
 
         .entry-meta .journal {
             font-style: italic;
-            color: var(--text-secondary);
+            color: var(--muted);
         }
 
         .entry-year {
             margin-top: 0.45rem;
             font-size: 0.88rem;
-            color: var(--text-secondary);
+            color: var(--muted);
         }
 
         .entry-status {
             margin: 0.35rem 0 0;
             font-size: 0.92rem;
-            color: var(--rit-orange);
+            color: var(--accent);
             font-weight: 700;
             letter-spacing: 0.03em;
         }
@@ -259,7 +259,7 @@
         .entry-subtext {
             margin: 0.35rem 0 0;
             font-size: 0.92rem;
-            color: var(--text-secondary);
+            color: var(--muted);
         }
 
         .entry-link {
@@ -267,7 +267,7 @@
         }
 
         .entry-link a {
-            color: var(--rit-orange);
+            color: var(--accent);
             text-decoration: none;
         }
 
@@ -284,7 +284,7 @@
                 position: static;
                 flex-direction: row;
                 border-right: none;
-                border-bottom: 1px solid var(--border-color);
+                border-bottom: 1px solid var(--border);
                 padding-bottom: 1rem;
                 margin-bottom: 1.5rem;
                 overflow-x: auto;

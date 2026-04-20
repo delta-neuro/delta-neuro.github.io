@@ -14,12 +14,12 @@
             --muted: #555555;
             --accent: #F76902;
             --border: #e5e5e5;
-            --shadow: 0 4px 12px rgba(0,0,0,0.06);
+            --shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
         }
 
         body {
             margin: 0;
-            font-family: "Segoe UI", Roboto, Arial, sans-serif;
+            font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background: var(--bg);
             color: var(--text);
             transition: background 0.3s ease, color 0.3s ease;
@@ -28,10 +28,12 @@
         body.dark-mode {
             --bg: #111111;
             --surface: #1a1a1a;
+            --nav: #000000;
+            --nav-text: #ffffff;
             --text: #f2f2f2;
             --muted: #aaaaaa;
-            --nav: #000000;
             --border: #333333;
+            --shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
         }
 
         /* Navigation */
@@ -43,7 +45,7 @@
             gap: 1rem;
             padding: 1.2rem 1rem;
             background: var(--nav);
-            border-bottom: 1px solid rgba(255,255,255,0.08);
+            border-bottom: 1px solid var(--border);
         }
 
         nav a, .theme-btn {

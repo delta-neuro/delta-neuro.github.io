@@ -13,24 +13,26 @@
             --text: #111111;
             --muted: #4f4f4f;
             --accent: #F76902;
-            --border: rgba(17,17,17,0.08);
-            --shadow: 0 16px 40px rgba(0,0,0,0.08);
+            --border: rgba(17, 17, 17, 0.08);
+            --shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
         }
 
         body {
             margin: 0;
-            font-family: "Segoe UI", Roboto, Arial, sans-serif;
+            font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background: var(--bg);
             color: var(--text);
         }
 
         body.dark-mode {
-            background: #111111;
-            color: #f2f2f2;
-        }
-
-        body.dark-mode nav {
-            background: #000000;
+            --bg: #111111;
+            --surface: #1a1a1a;
+            --nav: #000000;
+            --nav-text: #ffffff;
+            --text: #f2f2f2;
+            --muted: #aaaaaa;
+            --border: #333333;
+            --shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
         }
 
         body.dark-mode .search-panel,
@@ -39,18 +41,18 @@
         body.dark-mode .person-meta,
         body.dark-mode .section-heading,
         body.dark-mode .section-description {
-            background: #1a1a1a;
-            color: #e5e5e5;
+            background: var(--surface);
+            color: var(--text);
         }
 
         body.dark-mode .person-card {
-            border-color: rgba(255,255,255,0.08);
-            box-shadow: 0 16px 36px rgba(0,0,0,0.35);
+            border-color: var(--border);
+            box-shadow: var(--shadow);
         }
 
         body.dark-mode .person-meta p,
         body.dark-mode .search-note {
-            color: #bdbdbd;
+            color: var(--muted);
         }
 
         nav {
@@ -61,7 +63,7 @@
             gap: 1rem;
             padding: 1.2rem 1rem;
             background: var(--nav);
-            border-bottom: 1px solid rgba(255,255,255,0.08);
+            border-bottom: 1px solid var(--border);
         }
 
         nav a,
@@ -426,12 +428,7 @@
                     <div class="filter-group">
                         <button type="button" id="filter-btn">Filter</button>
                         <div class="filter-menu" id="filter-menu" aria-label="Filter options">
-                            <button type="button" class="filter-option" data-value="PhD student">PhD student</button>
-                            <button type="button" class="filter-option" data-value="Masters student">Masters student</button>
-                            <button type="button" class="filter-option" data-value="Undergrad">Undergrad</button>
-                            <button type="button" class="filter-option" data-value="Project Manager">Project Manager</button>
-                            <button type="button" class="filter-option" data-value="Research Scientist">Research Scientist</button>
-                            <button type="button" class="filter-option" data-value="Postdoctoral Fellow">Postdoctoral Fellow</button>
+                            <!-- Dynamically populated via JS -->
                         </div>
                     </div>
                 </div>
@@ -474,6 +471,7 @@
         const noResults = document.getElementById('no-results');
         
         let teamCardsDOM = []; // Will store references to DOM elements for filtering
+        const filterMenu = document.getElementById('filter-menu');
 
         const contentMap = {
             hero_subtitle: 'hero-subtitle',
@@ -538,6 +536,23 @@
                 if (!res.ok) throw new Error('Failed to load team config');
                 const teamData = await res.json();
                 const grid = document.getElementById('people-grid');
+                
+                // Extract unique roles for filters
+                const roles = [...new Set(teamData.map(p => p.role))].sort();
+                filterMenu.innerHTML = ''; // Clear existing
+                roles.forEach(role => {
+                    const btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.className = 'filter-option';
+                    btn.dataset.value = role;
+                    btn.textContent = role;
+                    btn.addEventListener('click', () => {
+                        searchInput.value = btn.dataset.value;
+                        filterTeam();
+                        filterMenu.classList.remove('show');
+                    });
+                    filterMenu.appendChild(btn);
+                });
                 
                 teamData.forEach(person => {
                     const el = document.createElement('a');

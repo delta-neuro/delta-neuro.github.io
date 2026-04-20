@@ -7,45 +7,47 @@
     <style>
         :root {
             --bg: #ffffff;
+            --surface: #f7f7f7;
+            --nav: #000000;
+            --nav-text: #ffffff;
             --text: #111111;
             --muted: #4f4f4f;
             --accent: #F76902;
-            --nav-bg: #000000;
-            --nav-text: #ffffff;
-            --surface: #f7f7f7;
             --border: rgba(247, 105, 2, 0.22);
+            --shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
         }
 
         body {
             margin: 0;
-            font-family: "Segoe UI", Roboto, Arial, sans-serif;
+            font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background: var(--bg);
             color: var(--text);
             min-height: 100vh;
         }
 
         body.dark-mode {
-            background: #111111;
-            color: #f2f2f2;
-        }
-
-        body.dark-mode nav {
-            background: #111111;
-            border-color: rgba(255,255,255,0.08);
+            --bg: #111111;
+            --surface: #1a1a1a;
+            --nav: #000000;
+            --nav-text: #ffffff;
+            --text: #f2f2f2;
+            --muted: #aaaaaa;
+            --border: #333333;
+            --shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
         }
 
         body.dark-mode .hero-banner {
-            background: #111111;
-            color: #f2f2f2;
+            background: var(--bg);
+            color: var(--text);
         }
 
         body.dark-mode .section-block,
         body.dark-mode .position-image-card,
         body.dark-mode .open-section,
         body.dark-mode .open-card {
-            background: #1c1c1c;
-            border-color: rgba(255,255,255,0.08);
-            color: #e6e6e6;
+            background: var(--surface);
+            border-color: var(--border);
+            color: var(--text);
         }
 
         body.dark-mode .position-icon {
@@ -56,7 +58,7 @@
         body.dark-mode .position-item p,
         body.dark-mode .section-header p,
         body.dark-mode .position-image-card .image-caption {
-            color: #c6c6c6;
+            color: var(--muted);
         }
 
         nav {
@@ -66,8 +68,8 @@
             align-items: center;
             gap: 1rem;
             padding: 1.2rem 1rem;
-            background: var(--nav-bg);
-            border-bottom: 1px solid rgba(255,255,255,0.08);
+            background: var(--nav);
+            border-bottom: 1px solid var(--border);
         }
 
         nav a,
