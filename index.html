@@ -412,8 +412,8 @@
             const channels = Array.from({ length: channelCount }, (_, index) => ({
                 phase: Math.random() * Math.PI * 2,
                 wobble: 0.8 + Math.random() * 0.7,
-                amplitude: 4 + Math.random() * 3,
-                baselineOffset: index,
+                amplitude: 2.2 + Math.random() * 1.7,
+                detail: 0.6 + Math.random() * 0.8,
             }));
             let width = 0;
             let height = 0;
@@ -461,13 +461,15 @@
                 spikeEvents.push({
                     channelIndexes: affected,
                     xStart: -140 - Math.random() * 120,
-                    speed: 240 + Math.random() * 120,
-                    width: 50 + Math.random() * 36,
-                    height: 18 + Math.random() * 24,
+                    speed: 260 + Math.random() * 130,
+                    width: 18 + Math.random() * 12,
+                    slowWidth: 58 + Math.random() * 38,
+                    height: 20 + Math.random() * 28,
+                    slowHeight: 7 + Math.random() * 8,
                     createdAt: now,
                 });
 
-                nextSpikeAt = now + 850 + Math.random() * 1800;
+                nextSpikeAt = now + 1100 + Math.random() * 2200;
             }
 
             function spikeContribution(channelIndex, x, now) {
@@ -486,31 +488,42 @@
                         continue;
                     }
 
-                    const normalized = (x - centerX) / spike.width;
-                    if (Math.abs(normalized) > 1) {
+                    const leading = (x - centerX) / spike.width;
+                    const slowNormalized = (x - (centerX + spike.width * 0.95)) / spike.slowWidth;
+                    if (Math.abs(leading) > 2.2 && Math.abs(slowNormalized) > 1.4) {
                         continue;
                     }
 
-                    const envelope = 1 - Math.abs(normalized);
-                    const polarity = normalized < 0 ? 1 : -0.45;
-                    total += spike.height * envelope * polarity;
+                    const sharpUpstroke = Math.exp(-Math.pow((leading + 0.18) / 0.22, 2)) * spike.height;
+                    const sharpDownstroke = Math.exp(-Math.pow((leading - 0.12) / 0.16, 2)) * spike.height * 0.52;
+                    const slowWave = Math.exp(-Math.pow(slowNormalized / 0.68, 2)) * spike.slowHeight;
+                    total += sharpUpstroke;
+                    total -= sharpDownstroke;
+                    total -= slowWave;
                 }
 
                 return total;
             }
 
+            function eegNoise(channel, x, t, index) {
+                const drift = Math.sin((x * 0.0042) + (t * 0.52) + channel.phase) * (channel.amplitude * 0.85);
+                const alpha = Math.sin((x * 0.018) - (t * (3.2 + channel.wobble)) + channel.phase * 0.7) * (1.2 + channel.detail);
+                const beta = Math.sin((x * 0.031) + (t * (6.5 + channel.detail)) + index * 0.43) * 0.65;
+                const jagged = Math.sin((x * 0.052) - (t * 9.4) + channel.phase * 1.4);
+                const clippedJagged = Math.sign(jagged) * Math.pow(Math.abs(jagged), 1.9) * 0.48;
+                const envelope = 0.72 + 0.28 * Math.sin((t * 0.33) + index * 0.9 + channel.phase);
+                return drift + (alpha + beta + clippedJagged) * envelope;
+            }
+
             function drawChannel(channel, index, nowSeconds) {
                 const baseY = channelY(index);
-                const step = 8;
+                const step = 6;
                 context.beginPath();
 
                 for (let x = -step; x <= width + step; x += step) {
-                    const t = nowSeconds;
-                    const slow = Math.sin((x * 0.012) + (t * 1.5) + channel.phase) * channel.amplitude;
-                    const fast = Math.sin((x * 0.037) - (t * 4.4 * channel.wobble) + channel.phase * 0.5) * 1.6;
-                    const mid = Math.sin((x * 0.024) + (t * 2.2) + index * 0.8) * 1.1;
+                    const background = eegNoise(channel, x, nowSeconds, index);
                     const spike = spikeContribution(index, x, nowSeconds * 1000);
-                    const y = baseY + slow + fast + mid - spike;
+                    const y = baseY + background - spike;
 
                     if (x <= 0) {
                         context.moveTo(x, y);
