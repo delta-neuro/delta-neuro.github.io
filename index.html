@@ -47,22 +47,34 @@
             position: fixed;
             inset: 0;
             pointer-events: none;
-            z-index: 0;
-            opacity: 0.08;
+            z-index: 4;
+            opacity: 0.09;
+            mix-blend-mode: multiply;
             background:
-                radial-gradient(130% 55% at 50% 50%, transparent 34%, rgba(247, 105, 2, 0.2) 50%, transparent 66%),
-                linear-gradient(90deg, transparent 0%, rgba(247, 105, 2, 0.22) 50%, transparent 100%);
-            background-size: 210% 100%, 170% 100%;
-            background-position: -130% 0, -130% 0;
-            animation: pageWaveSweep 8s ease-in-out infinite;
+                linear-gradient(90deg,
+                    transparent 0%,
+                    transparent 34%,
+                    rgba(247, 105, 2, 0.38) 48%,
+                    rgba(255, 255, 255, 0.42) 50%,
+                    rgba(247, 105, 2, 0.34) 52%,
+                    transparent 66%,
+                    transparent 100%);
+            background-size: 230% 100%;
+            background-position: -160% 0;
+            animation: pageWaveSweep 8s linear infinite;
+        }
+
+        body.dark-mode::before {
+            mix-blend-mode: screen;
+            opacity: 0.08;
         }
 
         @keyframes pageWaveSweep {
             0% {
-                background-position: -130% 0, -130% 0;
+                background-position: -160% 0;
             }
             100% {
-                background-position: 130% 0, 130% 0;
+                background-position: 160% 0;
             }
         }
 
