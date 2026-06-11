@@ -48,25 +48,52 @@
             inset: 0;
             pointer-events: none;
             z-index: 4;
-            opacity: 0.09;
+            opacity: 0.08;
             mix-blend-mode: multiply;
             background:
                 linear-gradient(90deg,
                     transparent 0%,
-                    transparent 34%,
-                    rgba(247, 105, 2, 0.38) 48%,
-                    rgba(255, 255, 255, 0.42) 50%,
-                    rgba(247, 105, 2, 0.34) 52%,
-                    transparent 66%,
+                    transparent 30%,
+                    rgba(25, 25, 25, 0.32) 48%,
+                    rgba(210, 210, 210, 0.5) 50%,
+                    rgba(25, 25, 25, 0.3) 52%,
+                    transparent 70%,
                     transparent 100%);
-            background-size: 230% 100%;
-            background-position: -160% 0;
-            animation: pageWaveSweep 8s linear infinite;
+            background-size: 240% 100%;
+            background-position: -170% 0;
+            animation: pageWaveSweep 8s linear infinite, pulseFlickerA 11s steps(1, end) infinite;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 4;
+            opacity: 0.05;
+            mix-blend-mode: multiply;
+            background:
+                linear-gradient(90deg,
+                    transparent 0%,
+                    transparent 40%,
+                    rgba(0, 0, 0, 0.22) 49%,
+                    rgba(230, 230, 230, 0.35) 50%,
+                    rgba(0, 0, 0, 0.2) 51%,
+                    transparent 60%,
+                    transparent 100%);
+            background-size: 260% 100%;
+            background-position: -185% 0;
+            animation: pageWaveSweepAlt 6.8s linear infinite, pulseFlickerB 9s steps(1, end) infinite;
         }
 
         body.dark-mode::before {
             mix-blend-mode: screen;
             opacity: 0.08;
+        }
+
+        body.dark-mode::after {
+            mix-blend-mode: screen;
+            opacity: 0.06;
         }
 
         @keyframes pageWaveSweep {
@@ -76,6 +103,27 @@
             100% {
                 background-position: 160% 0;
             }
+        }
+
+        @keyframes pageWaveSweepAlt {
+            0% {
+                background-position: -185% 0;
+            }
+            100% {
+                background-position: 185% 0;
+            }
+        }
+
+        @keyframes pulseFlickerA {
+            0%, 13%, 26%, 41%, 58%, 74%, 100% { opacity: 0.07; }
+            7%, 33%, 52%, 69%, 88% { opacity: 0.1; }
+            20%, 47%, 80%, 93% { opacity: 0.05; }
+        }
+
+        @keyframes pulseFlickerB {
+            0%, 15%, 29%, 44%, 62%, 78%, 100% { opacity: 0.05; }
+            8%, 37%, 55%, 72%, 90% { opacity: 0.08; }
+            22%, 48%, 84%, 96% { opacity: 0.03; }
         }
 
         nav {
@@ -155,6 +203,7 @@
             text-align: center;
             width: 320px;
             max-width: 100%;
+            perspective: 900px;
         }
 
         .lab-logo {
@@ -163,24 +212,27 @@
             height: auto;
             border-radius: 24px;
             box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
-            transform-origin: 50% 48%;
-            animation: logoPulse 7s ease-in-out infinite;
+            transform-origin: 50% 50%;
+            backface-visibility: hidden;
+            transform-style: preserve-3d;
         }
 
-        @keyframes logoPulse {
+        body.idle-spin .lab-logo {
+            animation: logoIdleSpin 2.8s linear infinite;
+        }
+
+        @keyframes logoIdleSpin {
             0% {
-                transform: rotate(-1.8deg) scale(1);
-            }
-            50% {
-                transform: rotate(1.8deg) scale(1.02);
+                transform: rotateY(0deg);
             }
             100% {
-                transform: rotate(-1.8deg) scale(1);
+                transform: rotateY(360deg);
             }
         }
 
         @media (prefers-reduced-motion: reduce) {
             body::before,
+            body::after,
             .lab-logo {
                 animation: none;
             }
@@ -295,7 +347,7 @@
         <div class="split-container">
 
             <div class="left-box">
-                <img src="images/deltaneuro_yaxis.png" alt="Delta Neuro Logo" class="lab-logo">
+                <img src="images/deltaneuro_yaxis_nobg.png" alt="Delta Neuro Logo" class="lab-logo">
             </div>
 
             <div class="right-box">
@@ -323,6 +375,27 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             loadHomepageText();
+
+            const idleDelayMs = 5000;
+            let idleTimer;
+
+            function clearIdleSpin() {
+                document.body.classList.remove('idle-spin');
+            }
+
+            function startIdleTimer() {
+                clearTimeout(idleTimer);
+                clearIdleSpin();
+                idleTimer = setTimeout(() => {
+                    document.body.classList.add('idle-spin');
+                }, idleDelayMs);
+            }
+
+            ['mousemove', 'mousedown', 'keydown', 'touchstart', 'scroll'].forEach(eventName => {
+                window.addEventListener(eventName, startIdleTimer, { passive: true });
+            });
+
+            startIdleTimer();
         });
     </script>
 
