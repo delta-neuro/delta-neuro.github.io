@@ -407,7 +407,8 @@
             }
 
             const context = canvas.getContext('2d');
-            const spikeEvents = [];
+            const burstEvents = [];
+            const sharpSpikeEvents = [];
             const channelCount = 8;
             const channels = Array.from({ length: channelCount }, (_, index) => ({
                 phase: Math.random() * Math.PI * 2,
@@ -420,7 +421,8 @@
             let height = 0;
             let devicePixelRatioValue = 1;
             let lastTimestamp = 0;
-            let nextSpikeAt = 0;
+            let nextBurstAt = 0;
+            let nextSharpSpikeAt = 0;
 
             function resizeCanvas() {
                 devicePixelRatioValue = window.devicePixelRatio || 1;
@@ -446,8 +448,8 @@
                 return `rgba(18, 18, 18, ${alpha})`;
             }
 
-            function maybeCreateSpike(now) {
-                if (now < nextSpikeAt) {
+            function maybeCreateBurst(now) {
+                if (now < nextBurstAt) {
                     return;
                 }
 
@@ -459,7 +461,7 @@
                     affected.push(channel);
                 }
 
-                spikeEvents.push({
+                burstEvents.push({
                     channelIndexes: affected,
                     xStart: width + 180 + Math.random() * 160,
                     speed: 24 + Math.random() * 26,
@@ -470,18 +472,73 @@
                     createdAt: now,
                 });
 
-                nextSpikeAt = now + 700 + Math.random() * 1400;
+                nextBurstAt = now + 700 + Math.random() * 1400;
             }
 
-            function spikeContribution(channelIndex, x, now) {
+            function maybeCreateSharpSpike(now) {
+                if (now < nextSharpSpikeAt) {
+                    return;
+                }
+
+                const startChannel = Math.floor(Math.random() * channelCount);
+                const span = Math.random() < 0.72 ? 1 : 2;
+                const affected = [];
+                for (let offset = 0; offset < span; offset += 1) {
+                    affected.push(Math.min(channelCount - 1, startChannel + offset));
+                }
+
+                sharpSpikeEvents.push({
+                    channelIndexes: affected,
+                    xStart: width + 140 + Math.random() * 140,
+                    speed: 38 + Math.random() * 34,
+                    width: 14 + Math.random() * 8,
+                    slowWidth: 34 + Math.random() * 18,
+                    height: 16 + Math.random() * 14,
+                    slowHeight: 5 + Math.random() * 4,
+                    createdAt: now,
+                });
+
+                nextSharpSpikeAt = now + 2600 + Math.random() * 4200;
+            }
+
+            function burstContribution(channelIndex, x, now) {
                 let total = 0;
 
-                for (let index = spikeEvents.length - 1; index >= 0; index -= 1) {
-                    const spike = spikeEvents[index];
+                for (let index = burstEvents.length - 1; index >= 0; index -= 1) {
+                    const burst = burstEvents[index];
+                    const centerX = burst.xStart - ((now - burst.createdAt) / 1000) * burst.speed;
+
+                    if (centerX + burst.width < -120) {
+                        burstEvents.splice(index, 1);
+                        continue;
+                    }
+
+                    if (!burst.channelIndexes.includes(channelIndex)) {
+                        continue;
+                    }
+
+                    const normalized = (x - centerX) / burst.width;
+                    if (Math.abs(normalized) > 1.8) {
+                        continue;
+                    }
+
+                    const envelope = Math.exp(-Math.pow(normalized / burst.decay, 2));
+                    const oscillation = Math.sin((x - centerX) * burst.frequency);
+                    total += envelope * oscillation * burst.height;
+                }
+
+                return total;
+            }
+
+            function sharpSpikeContribution(channelIndex, x, now) {
+                let total = 0;
+
+                for (let index = sharpSpikeEvents.length - 1; index >= 0; index -= 1) {
+                    const spike = sharpSpikeEvents[index];
                     const centerX = spike.xStart - ((now - spike.createdAt) / 1000) * spike.speed;
 
-                    if (centerX + spike.width < -120) {
-                        spikeEvents.splice(index, 1);
+                    if (centerX + spike.slowWidth < -100) {
+                        sharpSpikeEvents.splice(index, 1);
                         continue;
                     }
 
@@ -490,13 +547,17 @@
                     }
 
                     const normalized = (x - centerX) / spike.width;
-                    if (Math.abs(normalized) > 1.8) {
+                    const slowNormalized = (x - (centerX + spike.width * 0.9)) / spike.slowWidth;
+                    if (Math.abs(normalized) > 2.4 && Math.abs(slowNormalized) > 1.7) {
                         continue;
                     }
 
-                    const envelope = Math.exp(-Math.pow(normalized / spike.decay, 2));
-                    const oscillation = Math.sin((x - centerX) * spike.frequency);
-                    total += envelope * oscillation * spike.height;
+                    const sharpPeak = Math.exp(-Math.pow((normalized + 0.08) / 0.18, 2)) * spike.height;
+                    const sharpDrop = Math.exp(-Math.pow((normalized - 0.16) / 0.22, 2)) * spike.height * 0.62;
+                    const slowWave = Math.exp(-Math.pow(slowNormalized / 0.72, 2)) * spike.slowHeight;
+                    total += sharpPeak;
+                    total -= sharpDrop;
+                    total -= slowWave;
                 }
 
                 return total;
@@ -518,8 +579,9 @@
 
                 for (let x = -step; x <= width + step; x += step) {
                     const background = eegNoise(channel, x, nowSeconds, index);
-                    const burst = spikeContribution(index, x, nowSeconds * 1000);
-                    const y = baseY + background + burst;
+                    const burst = burstContribution(index, x, nowSeconds * 1000);
+                    const sharpSpike = sharpSpikeContribution(index, x, nowSeconds * 1000);
+                    const y = baseY + background + burst - sharpSpike;
 
                     if (x <= 0) {
                         context.moveTo(x, y);
@@ -536,12 +598,14 @@
             function draw(now) {
                 if (!lastTimestamp) {
                     lastTimestamp = now;
-                    nextSpikeAt = now + 600;
+                    nextBurstAt = now + 600;
+                    nextSharpSpikeAt = now + 2200;
                 }
 
                 const nowSeconds = now / 1000;
                 context.clearRect(0, 0, width, height);
-                maybeCreateSpike(now);
+                maybeCreateBurst(now);
+                maybeCreateSharpSpike(now);
 
                 for (let index = 0; index < channelCount; index += 1) {
                     drawChannel(channels[index], index, nowSeconds);
