@@ -414,6 +414,7 @@
                 wobble: 0.8 + Math.random() * 0.7,
                 amplitude: 2.2 + Math.random() * 1.7,
                 detail: 0.6 + Math.random() * 0.8,
+                burstPhase: Math.random() * Math.PI * 2,
             }));
             let width = 0;
             let height = 0;
@@ -460,16 +461,16 @@
 
                 spikeEvents.push({
                     channelIndexes: affected,
-                    xStart: -140 - Math.random() * 120,
-                    speed: 260 + Math.random() * 130,
-                    width: 18 + Math.random() * 12,
-                    slowWidth: 58 + Math.random() * 38,
-                    height: 20 + Math.random() * 28,
-                    slowHeight: 7 + Math.random() * 8,
+                    xStart: width + 180 + Math.random() * 160,
+                    speed: 24 + Math.random() * 26,
+                    width: 70 + Math.random() * 60,
+                    frequency: 0.12 + Math.random() * 0.08,
+                    height: 7 + Math.random() * 8,
+                    decay: 0.82 + Math.random() * 0.22,
                     createdAt: now,
                 });
 
-                nextSpikeAt = now + 1100 + Math.random() * 2200;
+                nextSpikeAt = now + 700 + Math.random() * 1400;
             }
 
             function spikeContribution(channelIndex, x, now) {
@@ -477,9 +478,9 @@
 
                 for (let index = spikeEvents.length - 1; index >= 0; index -= 1) {
                     const spike = spikeEvents[index];
-                    const centerX = spike.xStart + ((now - spike.createdAt) / 1000) * spike.speed;
+                    const centerX = spike.xStart - ((now - spike.createdAt) / 1000) * spike.speed;
 
-                    if (centerX - spike.width > width + 180) {
+                    if (centerX + spike.width < -120) {
                         spikeEvents.splice(index, 1);
                         continue;
                     }
@@ -488,31 +489,26 @@
                         continue;
                     }
 
-                    const leading = (x - centerX) / spike.width;
-                    const slowNormalized = (x - (centerX + spike.width * 0.95)) / spike.slowWidth;
-                    if (Math.abs(leading) > 2.2 && Math.abs(slowNormalized) > 1.4) {
+                    const normalized = (x - centerX) / spike.width;
+                    if (Math.abs(normalized) > 1.8) {
                         continue;
                     }
 
-                    const sharpUpstroke = Math.exp(-Math.pow((leading + 0.18) / 0.22, 2)) * spike.height;
-                    const sharpDownstroke = Math.exp(-Math.pow((leading - 0.12) / 0.16, 2)) * spike.height * 0.52;
-                    const slowWave = Math.exp(-Math.pow(slowNormalized / 0.68, 2)) * spike.slowHeight;
-                    total += sharpUpstroke;
-                    total -= sharpDownstroke;
-                    total -= slowWave;
+                    const envelope = Math.exp(-Math.pow(normalized / spike.decay, 2));
+                    const oscillation = Math.sin((x - centerX) * spike.frequency);
+                    total += envelope * oscillation * spike.height;
                 }
 
                 return total;
             }
 
             function eegNoise(channel, x, t, index) {
-                const drift = Math.sin((x * 0.0042) + (t * 0.52) + channel.phase) * (channel.amplitude * 0.85);
-                const alpha = Math.sin((x * 0.018) - (t * (3.2 + channel.wobble)) + channel.phase * 0.7) * (1.2 + channel.detail);
-                const beta = Math.sin((x * 0.031) + (t * (6.5 + channel.detail)) + index * 0.43) * 0.65;
-                const jagged = Math.sin((x * 0.052) - (t * 9.4) + channel.phase * 1.4);
-                const clippedJagged = Math.sign(jagged) * Math.pow(Math.abs(jagged), 1.9) * 0.48;
-                const envelope = 0.72 + 0.28 * Math.sin((t * 0.33) + index * 0.9 + channel.phase);
-                return drift + (alpha + beta + clippedJagged) * envelope;
+                const drift = Math.sin((x * 0.0036) + (t * 0.35) + channel.phase) * (channel.amplitude * 0.55);
+                const theta = Math.sin((x * 0.02) - (t * (2.6 + channel.wobble)) + channel.phase * 0.7) * (1.05 + channel.detail * 0.4);
+                const beta = Math.sin((x * 0.043) + (t * (5.8 + channel.detail)) + index * 0.43) * 0.52;
+                const grain = Math.sin((x * 0.078) - (t * 8.2) + channel.phase * 1.4) * 0.28;
+                const clipped = Math.sin((x * 0.11) + (t * 11.5) + channel.phase * 0.9) * 0.18;
+                return drift + theta + beta + grain + clipped;
             }
 
             function drawChannel(channel, index, nowSeconds) {
@@ -522,8 +518,8 @@
 
                 for (let x = -step; x <= width + step; x += step) {
                     const background = eegNoise(channel, x, nowSeconds, index);
-                    const spike = spikeContribution(index, x, nowSeconds * 1000);
-                    const y = baseY + background - spike;
+                    const burst = spikeContribution(index, x, nowSeconds * 1000);
+                    const y = baseY + background + burst;
 
                     if (x <= 0) {
                         context.moveTo(x, y);
